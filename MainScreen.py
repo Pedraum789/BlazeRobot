@@ -1,6 +1,7 @@
 import os
 import sys
 import customtkinter
+from CTkMessagebox import CTkMessagebox
 
 sys.path.append(os.path.abspath("Strategies") + "\StrategyOneFiles")
 sys.path.append(os.path.abspath("Strategies") + "\StrategyTwoFiles")
@@ -9,6 +10,7 @@ sys.path.append(os.path.abspath("credentials"))
 import ViewStrategyOne
 import ViewStrategyTwo
 import AccessHotmart
+import UserControl
 import webbrowser
 import cv2
 import requests
@@ -21,20 +23,31 @@ class MainScreen:
         self.mainScreen = None
         self.tabview = None
         self.websiteToBy = 'https://hotmart.com/'
+        self.userControl = None
 
     def redirectToBuy(self):
         webbrowser.open(self.websiteToBy)
 
     def onClosing(self):
+        if self.userControl is not None:
+            self.userControl.userNotUsing()
         self.mainScreen.destroy()
-        print("SAAAAIIII")
+
+    def showErrorMessage(self, message):
+        CTkMessagebox(title="Error", message=message, icon="cancel")
 
     def validateAccess(self, email):
+        self.userControl = UserControl.UserControl(email)
 
         if AccessHotmart.AccessHotmart().clientHasSubscriptionActive(email):
-            self.createTabStrategies()
+            if(self.userControl.setUserUsing()):
+                self.createTabStrategies()
+            else:
+                self.userControl = None
+                self.showErrorMessage("Há um usuário utilizando o programa. Entre em contato com o administrador.")
         else:
-            pass
+            self.userControl = None
+            self.showErrorMessage("O usuário de email não está cadastrado. Entre em contato com o administrador.")
 
     # Tab Estratégias
     def createTabStrategies(self):
