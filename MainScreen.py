@@ -40,7 +40,7 @@ class MainScreen:
         self.userControl = UserControl.UserControl(email)
 
         if AccessHotmart.AccessHotmart().clientHasSubscriptionActive(email):
-            if(self.userControl.setUserUsing()):
+            if(self.userControl.userUsing()):
                 self.createTabStrategies()
             else:
                 self.userControl = None

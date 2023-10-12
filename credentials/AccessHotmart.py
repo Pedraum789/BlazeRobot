@@ -5,7 +5,7 @@ import AccessCredentials
 class AccessHotmart:
 
     def __init__(self):
-        self.bearerToken = AccessCredentials.getAcessToken()
+        self.bearerToken = AccessCredentials.getAcessTokenHotmart()
         self.path = 'https://sandbox.hotmart.com'
 
     def getSaleHistoryByEmail(self, email):
