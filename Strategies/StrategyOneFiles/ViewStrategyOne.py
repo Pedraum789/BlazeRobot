@@ -53,7 +53,7 @@ class ViewStrategyOne:
             self.changeAlert("Valor deve ser um número.")
             return True
         
-    def validateToStart(self, moneyStart, waitCrash, autoStop, stopLose, stopWin):
+    def validateToStart(self, moneyStart, waitCrash, autoStop, stopLose, stopWin, strategyScren):
         
         if moneyStart.get() == '' or waitCrash.get() == '' or autoStop.get() == '' or stopLose.get() == '' or stopWin.get() == '':
             self.changeAlert("Todos os campos devem ser preenchidos.")
@@ -66,14 +66,14 @@ class ViewStrategyOne:
                 self.validFloatValue(stopWin, "STOP WIN")):
             return
             
-        self.thread = ThreadProgramStop(target=self.toStart, args=[float(moneyStart.get()), int(waitCrash.get()), int(autoStop.get()), float(stopLose.get()), float(stopWin.get())])
+        self.thread = ThreadProgramStop(target=self.toStart, args=[float(moneyStart.get()), int(waitCrash.get()), int(autoStop.get()), float(stopLose.get()), float(stopWin.get()), strategyScren])
         self.thread.start()
     
-    def toStart(self, moneyStart, waitCrash, autoStop, stopLose, stopWin):
+    def toStart(self, moneyStart, waitCrash, autoStop, stopLose, stopWin, strategyScren):
         self.changeAlert("Executando...")
         self.switchStartButton()
         self.switchExitButton()
-        StrategyOne.StrategyOne(moneyStart, waitCrash, autoStop, self.thread, stopLose, stopWin).startStrategy()
+        StrategyOne.StrategyOne(moneyStart, waitCrash, autoStop, self.thread, stopLose, stopWin, strategyScren).startStrategy()
     
     def switchStartButton(self):
         if self.buttonStart._state == ctk.NORMAL:
@@ -135,7 +135,7 @@ class ViewStrategyOne:
         stopWin = ctk.CTkEntry(strategyScren, width=30)
         stopWin.grid(row=7, column=1, padx=(10, 10), pady=(10, 10), sticky="nsew")
 
-        self.buttonStart = ctk.CTkButton(strategyScren, text="START", command=lambda: self.validateToStart(moneyStart, waitCrash, autoStop, stopLose, stopWin))
+        self.buttonStart = ctk.CTkButton(strategyScren, text="START", command=lambda: self.validateToStart(moneyStart, waitCrash, autoStop, stopLose, stopWin, strategyScren))
         self.buttonStart.grid(row=8, column=1, padx=(10, 10), pady=(10, 10), sticky="nsew")
 
         self.buttonExit = ctk.CTkButton(strategyScren, text="QUIT", command=lambda : self.exit(strategyScren), state=ctk.DISABLED)

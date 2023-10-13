@@ -1,7 +1,7 @@
 import os
 import sys
 import customtkinter
-from CTkMessagebox import CTkMessagebox
+import CTkMessagebox
 
 sys.path.append(os.path.abspath("Strategies") + "\StrategyOneFiles")
 sys.path.append(os.path.abspath("Strategies") + "\StrategyTwoFiles")
@@ -34,7 +34,7 @@ class MainScreen:
         self.mainScreen.destroy()
 
     def showErrorMessage(self, message):
-        CTkMessagebox(title="Error", message=message, icon="cancel")
+        CTkMessagebox.CTkMessagebox(title="Error", message=message, icon="cancel")
 
     def validateAccess(self, email):
         self.userControl = UserControl.UserControl(email)

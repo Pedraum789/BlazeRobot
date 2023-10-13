@@ -5,15 +5,15 @@ sys.path.append(path)
 import SearchHistory
 import SearchImage
 import pyautogui
-from CTkMessagebox import CTkMessagebox
+import CTkMessagebox
 
 def show_info(info):
     # Default messagebox for showing some information
-    CTkMessagebox(title="Info", message=info)
+    CTkMessagebox.CTkMessagebox(title="Info", message=info)
 
 class StrategyOne:
 
-    def __init__(self, moneyStart, waitCrash, autoStop, thread, stopLose, stopWin):
+    def __init__(self, moneyStart, waitCrash, autoStop, thread, stopLose, stopWin, strategyScren):
         self.lastId = ''
         self.lastIdToNotRepeat = ''
         self.thread = thread
@@ -26,6 +26,7 @@ class StrategyOne:
         self.bought = False
         self.stopLose = stopLose
         self.stopWin = stopWin
+        self.strategyScren = strategyScren
 
     def setMoneyLoseAndStartByDecision(self):
 
@@ -56,7 +57,6 @@ class StrategyOne:
             return self.money
 
     def startStrategy(self):
-        self.lastId = SearchHistory.getLastIdHistory()
         print("COMECEI")
         while True:
 
@@ -64,24 +64,26 @@ class StrategyOne:
                 print("PAREI")
                 break
 
-            if self.moneyWin >= self.stopWin:
-                self.thread.stop()
-                show_info("Você chegou em seu STOP WIN de: R$" + str(self.stopWin) + " e ganhou: R$" + str(self.moneyWin))
-                break
-            elif self.moneyLose >= self.stopLose:
-                self.thread.stop()
-                show_info("Você chegou em seu STOP LOSE de: R$" + str(self.stopLose) + " e perdeu: R$" + str(self.moneyLose))
-                break
-
             if SearchImage.isImageOnScreen("crashed_2.png") and not SearchImage.isImageOnScreen("wait_line.png"):
                 try:
-                    quantity = SearchImage.getLocationImageOnScreen("quantia.png")
-                    pyautogui.moveTo(quantity[1][0], quantity[0][0])
-                    pyautogui.click()
 
                     self.setMoneyLoseAndStartByDecision()
 
+                    if self.moneyWin >= self.stopWin:
+                        show_info("Você chegou em seu STOP WIN de: R$" + str(self.stopWin) + " e ganhou: R$" + str(
+                            self.moneyWin))
+                        break
+
+                    elif self.moneyLose >= self.stopLose:
+                        show_info("Você chegou em seu STOP LOSE de: R$" + str(self.stopLose) + " e perdeu: R$" + str(
+                            self.moneyLose))
+                        break
+
                     if SearchHistory.verifyToBuy(self.waitCrash, self.autoStop):
+
+                        quantity = SearchImage.getLocationImageOnScreen("quantia.png")
+                        pyautogui.moveTo(quantity[1][0], quantity[0][0])
+                        pyautogui.click()
 
                         for key in range(len(list(str(self.moneyStart)))):
                             pyautogui.hotkey(list(str(self.moneyStart))[key])
@@ -93,3 +95,5 @@ class StrategyOne:
                         self.lastId = SearchHistory.getLastIdHistory()
                 except:
                     pass
+        self.thread.stop()
+        self.strategyScren.destroy()
