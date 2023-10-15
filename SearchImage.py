@@ -1,29 +1,11 @@
-import numpy as np
-import cv2
-import pyautogui
-import os
-
+_B='\\imagens.detection\\'
+_A='\\imagens.detection\\captura.png'
+import numpy as np,cv2,pyautogui,os
 def getLocationImageOnScreen(nameFile):
-    imagem = pyautogui.screenshot()
-    imagem.save(os.path.dirname(os.path.abspath(__file__)) + '\imagens.detection\captura.png')
-
-    screen = cv2.imread(os.path.dirname(os.path.abspath(__file__)) + "\\imagens.detection\\captura.png")
-    imageDetection = cv2.imread(os.path.dirname(os.path.abspath(__file__)) + "\\imagens.detection\\" + nameFile)
-    try:
-        res = cv2.matchTemplate(screen, imageDetection, cv2.TM_CCOEFF_NORMED)
-        loc = np.where(res >= 0.8)
-        return loc
-    except:
-        pass
-
+	A=pyautogui.screenshot();A.save(os.path.dirname(os.path.abspath(__file__))+_A);B=cv2.imread(os.path.dirname(os.path.abspath(__file__))+_A);C=cv2.imread(os.path.dirname(os.path.abspath(__file__))+_B+nameFile)
+	try:D=cv2.matchTemplate(B,C,cv2.TM_CCOEFF_NORMED);E=np.where(D>=.8);return E
+	except:pass
 def isImageOnScreen(nameFile):
-    imagem = pyautogui.screenshot()
-    imagem.save(os.path.dirname(os.path.abspath(__file__)) + '\imagens.detection\captura.png')
-
-    screen = cv2.imread(os.path.dirname(os.path.abspath(__file__)) + "\\imagens.detection\\captura.png")
-    imageDetection = cv2.imread(os.path.dirname(os.path.abspath(__file__)) + "\\imagens.detection\\" + nameFile)
-    try:
-        res = cv2.matchTemplate(screen, imageDetection, cv2.TM_CCOEFF_NORMED)
-        return np.any(res > 0.6)
-    except:
-        pass
+	A=pyautogui.screenshot();A.save(os.path.dirname(os.path.abspath(__file__))+_A);B=cv2.imread(os.path.dirname(os.path.abspath(__file__))+_A);C=cv2.imread(os.path.dirname(os.path.abspath(__file__))+_B+nameFile)
+	try:D=cv2.matchTemplate(B,C,cv2.TM_CCOEFF_NORMED);return np.any(D>.6)
+	except:pass

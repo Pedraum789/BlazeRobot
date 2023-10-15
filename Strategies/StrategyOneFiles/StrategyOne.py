@@ -36,25 +36,12 @@ class StrategyOne:
             lastIdCrash = SearchHistory.getLastIdHistory()
             if self.lastIdToNotRepeat != lastIdCrash:
                 self.moneyLose += self.money
-                print("LAST ID -> " + self.lastId)
-                print("LOSE -> " + str(self.moneyLose))
-                print("---------------")
                 self.lastIdToNotRepeat = lastIdCrash
-                return self.money
         elif status == "WIN":
             lastIdCrash = SearchHistory.getLastIdHistory()
             if self.lastIdToNotRepeat != lastIdCrash:
                 self.moneyWin = self.moneyWin + ((self.money * self.autoStop) - self.money)
-                print("LAST ID -> " + self.lastId)
-                print("WIN -> " + str(self.moneyWin))
-                print("---------------")
                 self.lastIdToNotRepeat = lastIdCrash
-                return self.moneyStart
-        else:
-            print("LAST ID -> " + self.lastId)
-            print("SAME")
-            print("---------------")
-            return self.money
 
     def startStrategy(self):
         print("COMECEI")
@@ -64,7 +51,7 @@ class StrategyOne:
                 print("PAREI")
                 break
 
-            if SearchImage.isImageOnScreen("crashed_2.png") and not SearchImage.isImageOnScreen("wait_line.png"):
+            if SearchImage.isImageOnScreen("crashed_2.png"):
                 try:
 
                     self.setMoneyLoseAndStartByDecision()
