@@ -56,7 +56,7 @@ class StrategyTwo:
                 print("PAREI")
                 break
 
-            if SearchImage.isImageOnScreen("crashed_2.png"):
+            if SearchImage.isImageOnScreenFast("crashed_2.png"):
                 try:
 
                     self.money = self.duplicateMoneyOrStay()

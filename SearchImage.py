@@ -9,3 +9,6 @@ def isImageOnScreen(nameFile):
 	A=pyautogui.screenshot();A.save(os.path.dirname(os.path.abspath(__file__))+_A);B=cv2.imread(os.path.dirname(os.path.abspath(__file__))+_A);C=cv2.imread(os.path.dirname(os.path.abspath(__file__))+_B+nameFile)
 	try:D=cv2.matchTemplate(B,C,cv2.TM_CCOEFF_NORMED);return np.any(D>.6)
 	except:pass
+
+def isImageOnScreenFast(nameFile):
+	return pyautogui.locateCenterOnScreen(os.path.dirname(os.path.abspath(__file__))+_B+nameFile,confidence=0.8) != None
