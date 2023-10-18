@@ -12,6 +12,7 @@ class ViewStrategyTwo:
         self.buttonStart = None
         self.buttonExit = None
         self.textResult = None
+        self.logText = None
     
     def changeAlert(self, text):
         self.textResult.configure(text = str(text))
@@ -71,10 +72,12 @@ class ViewStrategyTwo:
         
     
     def toStart(self, moneyStart, waitCrash, autoStop, stopLose, stopWin, strategyScren):
-        self.changeAlert("Executando...")
+        self.changeAlert("")
+        self.progressbarStart.grid(row=10, column=0, columnspan=3, padx=(10, 10), pady=(5, 5), sticky="ew")
+        self.progressbarStart.start()
         self.switchStartButton()
         self.switchExitButton()
-        StrategyTwo.StrategyTwo(moneyStart, waitCrash, autoStop, self.thread, stopLose, stopWin, strategyScren).startStrategy()
+        StrategyTwo.StrategyTwo(moneyStart, waitCrash, autoStop, self.thread, stopLose, stopWin, strategyScren, self.logText, self.progressbarStart, self.progressBarLose).startStrategy()
     
     def switchStartButton(self):
         if (self.buttonStart._state == ctk.NORMAL):
@@ -96,13 +99,13 @@ class ViewStrategyTwo:
     def startScreen(self):
         strategyScren = ctk.CTkToplevel(self.screen)
         strategyScren.title("Estratégia 2")
-        strategyScren.geometry("600x400")
-        strategyScren.minsize(600, 330)
+        strategyScren.geometry("600x450")
+        strategyScren.minsize(800, 450)
         strategyScren.iconbitmap(os.path.dirname(os.path.abspath("logo.ico")) + "\\icons\\logo.ico")
 
         # create 8x2 grid system
-        strategyScren.grid_rowconfigure(9, weight=1)
-        strategyScren.grid_columnconfigure((0, 1), weight=1)
+        strategyScren.grid_rowconfigure(10, weight=1)
+        strategyScren.grid_columnconfigure((0, 1, 2), weight=1)
         
         if platform.startswith("win"):
             strategyScren.after(200, lambda: strategyScren.iconbitmap(os.path.dirname(os.path.abspath("logo.ico")) + "\\icons\\logo.ico"))
@@ -131,17 +134,29 @@ class ViewStrategyTwo:
         ctk.CTkLabel(strategyScren, text="Stop LOSE").grid(row=6, column=0)
         stopLose = ctk.CTkEntry(strategyScren, width=30)
         stopLose.grid(row=7, column=0, padx=(10, 10), pady=(10, 10), sticky="nsew")
+        self.progressBarLose = ctk.CTkProgressBar(strategyScren, mode='determinate')
+        self.progressBarLose.set(0)
+        self.progressBarLose.grid(row=8, column=0, padx=(10, 10), pady=(10, 10), sticky="ew")
 
         ctk.CTkLabel(strategyScren, text="Stop WIN").grid(row=6, column=1)
         stopWin = ctk.CTkEntry(strategyScren, width=30)
         stopWin.grid(row=7, column=1, padx=(10, 10), pady=(10, 10), sticky="nsew")
+        self.progressBarWin = ctk.CTkProgressBar(strategyScren, mode='determinate')
+        self.progressBarWin.set(0)
+        self.progressBarWin.grid(row=8, column=1, padx=(10, 10), pady=(10, 10), sticky="ew")
+
+        self.buttonExit = ctk.CTkButton(strategyScren, text="QUIT", command=lambda : self.exit(strategyScren), state=ctk.DISABLED)
+        self.buttonExit.grid(row=9, column=0, padx=(10, 10), pady=(10, 10), sticky="nsew")
 
         self.buttonStart = ctk.CTkButton(strategyScren, text="START", command=lambda: self.validateToStart(moneyStart, waitCrash, autoStop, stopLose, stopWin, strategyScren))
-        self.buttonStart.grid(row=8, column=1, padx=(10, 10), pady=(10, 10), sticky="nsew")
-        
-        self.buttonExit = ctk.CTkButton(strategyScren, text="QUIT", command=lambda : self.exit(strategyScren), state=ctk.DISABLED)
-        self.buttonExit.grid(row=8, column=0, padx=(10, 10), pady=(10, 10), sticky="nsew")
-        
+        self.buttonStart.grid(row=9, column=1, padx=(10, 10), pady=(10, 10), sticky="nsew")
+
         self.textResult = ctk.CTkLabel(strategyScren, text="")
-        self.textResult.grid(row=9, column=0, columnspan=2, padx=(10, 10), pady=(5, 5), sticky="nsew")
+        self.textResult.grid(row=10, column=0, columnspan=2, padx=(10, 10), pady=(5, 5), sticky="nsew")
+
+        self.progressbarStart = ctk.CTkProgressBar(strategyScren)
+        self.progressbarStart.configure(mode="indeterminnate")
+
+        self.logText = ctk.CTkTextbox(strategyScren, width=230)
+        self.logText.grid(row=0, column=3, rowspan=10, padx=(10, 10), pady=(10, 10), sticky="nsew")
         

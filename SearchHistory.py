@@ -53,10 +53,22 @@ def getLastIdHistory():
     return ''
 
 
-def getStatusById(waitCrash, autoStop, lastId, bought):
-    # Para saber se não foi comprado
-    if not bought:
-        return "SAME"
+def getStatusWinOrLose(autoStop):
+
+    req = requests.get('https://blaze-1.com/api/crash_games/history')
+
+    if req.status_code == 200:
+        objeto_json = json.loads(req.text)
+
+        if float(objeto_json['records'][0]['crash_point']) >= autoStop:
+            return "WIN"
+
+        return "LOSE"
+
+    return "SAME"
+
+
+def getDecisionToEnter(waitCrash, autoStop):
 
     qtd = 0
     req = requests.get('https://blaze-1.com/api/crash_games/history')
@@ -64,28 +76,14 @@ def getStatusById(waitCrash, autoStop, lastId, bought):
     if req.status_code == 200:
         objeto_json = json.loads(req.text)
 
-        point = 0
+        for i in range(waitCrash):
 
-        for i in range(len(objeto_json['records'])):
-
-            if lastId == objeto_json['records'][i]['id']:
-                point = i
-                break
-
-        if point != 0:
-            point = point - 1
-
-        for i in range(point, point + waitCrash):
-            crashPoint = float(objeto_json['records'][i + 1]['crash_point'])
-
-            if crashPoint < autoStop:
+            if float(objeto_json['records'][i]['crash_point']) < autoStop:
                 qtd += 1
 
-        if float(objeto_json['records'][point]['crash_point']) >= autoStop and qtd >= waitCrash:
-            return "WIN"
-        elif float(objeto_json['records'][point]['crash_point']) < autoStop and qtd >= waitCrash:
-            return "LOSE"
-        else:
-            return "SAME"
+        if qtd >= waitCrash:
+            return True
 
-    return "SAME"
+        return False
+
+    return False
