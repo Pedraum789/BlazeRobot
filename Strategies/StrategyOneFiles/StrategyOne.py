@@ -82,7 +82,7 @@ class StrategyOne:
 
     def startStrategy(self):
         self.addOnLogText("Iniciado")
-        self.addOnLogText("Dinheiro INICIAL: " + self.wallet.getCurrencyType() + self.wallet.getMoney())
+        self.addOnLogText("Dinheiro INICIAL: " + str(self.wallet.getCurrencyType()) + str(self.wallet.getMoney()))
 
         self.lastId = SearchHistory.getLastIdHistory()
 
@@ -104,13 +104,13 @@ class StrategyOne:
                     if self.moneyWin >= self.stopWin:
                         self.wallet.updateWallet()
                         show_info("Você chegou em seu STOP WIN de: R$" + str(self.stopWin) + " e ganhou: R$" + str(self.moneyWin) + "\n" +
-                                  "Seu salto atual é de: " + self.wallet.getCurrencyType() + self.wallet.getMoney())
+                                  "Seu salto atual é de: " + str(self.wallet.getCurrencyType()) + str(self.wallet.getMoney()))
                         self.thread.stop()
                         break
                     elif self.moneyLose >= self.stopLose:
                         self.wallet.updateWallet()
                         show_info("Você chegou em seu STOP LOSE de: R$" + str(self.stopLose) + " e perdeu: R$" + str(self.moneyLose) + "\n" +
-                                  "Seu salto atual é de: " + self.wallet.getCurrencyType() + self.wallet.getMon)
+                                  "Seu salto atual é de: " + str(self.wallet.getCurrencyType()) + str(self.wallet.getMon))
                         self.thread.stop()
                         break
 
@@ -118,7 +118,7 @@ class StrategyOne:
                     while True:
 
                         if self.enterBlaze.enterCrash(self.money):
-                            self.addOnLogText("Entrei, com: " + self.wallet.getCurrencySymbol() + str(self.money))
+                            self.addOnLogText("Entrei, com: " + str(self.wallet.getCurrencySymbol()) + str(self.money))
                             self.bought = True
                             break
 
