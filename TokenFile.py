@@ -1,3 +1,5 @@
+from urllib import request
+
 def addTokenToPc(token):
     f = open("token.txt", "w")
     f.write(token)
@@ -9,3 +11,11 @@ def getTokenOnPc():
     except:
         return None
     return f.read()
+
+
+def internetOn():
+    try:
+        request.urlopen('http://google.com', timeout=1)
+        return True
+    except request.URLError as err:
+        return False

@@ -101,7 +101,6 @@ class ViewStrategyOne:
         strategyScren.minsize(800, 450)
         strategyScren.iconbitmap(os.path.dirname(os.path.abspath("logo.ico")) + "\\icons\\logo.ico")
 
-        # create 10x3 grid system
         strategyScren.grid_rowconfigure(10, weight=1)
         strategyScren.grid_columnconfigure((0, 1, 2), weight=1)
         

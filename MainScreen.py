@@ -7,6 +7,8 @@ sys.path.append(os.path.abspath("Strategies") + "\StrategyOneFiles")
 sys.path.append(os.path.abspath("Strategies") + "\StrategyTwoFiles")
 sys.path.append(os.path.abspath("credentials"))
 
+import UpdateVersion
+import Version
 import ViewStrategyOne
 import ViewStrategyTwo
 import AccessHotmart
@@ -63,7 +65,15 @@ class MainScreen:
     def showErrorMessage(self, message):
         CTkMessagebox.CTkMessagebox(title="Error", message=message, icon="cancel")
 
+    def show_checkmark(self, message):
+        CTkMessagebox.CTkMessagebox(title="Info", message=message, icon="check", option_1="Ok")
+
     def validateAccess(self, email):
+
+        if not TokenFile.internetOn():
+            self.showErrorMessage("Por favor se conecte na internet.")
+            return
+
         self.userControl = UserControl.UserControl(email)
 
         if AccessHotmart.AccessHotmart().clientHasSubscriptionActive(email):
@@ -148,6 +158,16 @@ class MainScreen:
         self.buttomClearToken = customtkinter.CTkButton(self.configFrame, text="Limpar Token", command=self.clearToken)
         self.buttomClearToken.grid(row=3, column=0, padx=(50, 50), pady=(10, 10), sticky="nsew")
 
+    def update(self):
+        if not TokenFile.internetOn():
+            self.showErrorMessage("Por favor se conecte na internet.")
+            return
+
+        if Version.hasUpdate():
+            UpdateVersion.UpdateVersion(self.mainScreen).updateVersion()
+        else:
+            self.show_checkmark("Seu app já está atualizado")
+
     # Tab Login
     def createTabLogin(self):
 
@@ -163,6 +183,9 @@ class MainScreen:
 
         customtkinter.CTkButton(self.tabview.tab("Login"), text="Comprar", command=self.redirectToBuy).pack(padx=7, pady=7)
 
+        customtkinter.CTkButton(self.tabview.tab("Login"), text="Update", command=self.update).pack(
+            padx=7, pady=7)
+
     def main(self):
         customtkinter.set_appearance_mode("dark")
         customtkinter.set_default_color_theme("dark-blue")
@@ -171,10 +194,9 @@ class MainScreen:
 
         self.mainScreen.title("Robo Blaze")
         self.mainScreen.iconbitmap(os.path.dirname(os.path.abspath("logo.ico")) + "\\icons\\logo.ico")
-        self.mainScreen.geometry("300x230")
+        self.mainScreen.geometry("300x250")
         self.mainScreen.protocol("WM_DELETE_WINDOW", self.onClosing)
 
-        # create 4x4 grid system
         self.mainScreen.grid_rowconfigure(0, weight=1)
         self.mainScreen.grid_columnconfigure((0, 1), weight=1)
 

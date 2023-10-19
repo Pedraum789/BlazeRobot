@@ -21,7 +21,7 @@ def getAccessTokenBlaze(thread):
             time.sleep(1)
 
             pyautogui.hotkey('ctrl', 'shift', 'i')
-            time.sleep(5)
+            time.sleep(6)
             pyautogui.hotkey('ctrl', '`')
 
             key = 'copy(localStorage.ACCESS_TOKEN)'
@@ -30,8 +30,6 @@ def getAccessTokenBlaze(thread):
                 pyautogui.press(list(str(key))[i])
 
             pyautogui.press('ENTER')
-
-            pyautogui.hotkey('alt', 'F4')
 
             return pyperclip.paste()
 

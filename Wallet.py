@@ -41,3 +41,6 @@ class Wallet:
 
     def getCurrencyType(self):
         return self.currency_type
+
+    def getMoney(self):
+        return self.balance
