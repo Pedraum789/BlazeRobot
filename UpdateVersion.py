@@ -5,7 +5,7 @@ from ThreadProgramStop import ThreadProgramStop
 import requests
 import win32api
 
-_AppName_ = 'BlazerRobot'
+_AppName_ = 'smart_blaster_setup'
 
 class UpdateVersion:
 

@@ -21,6 +21,9 @@ import requests
 import pyautogui
 import numpy as np
 from ThreadProgramStop import ThreadProgramStop
+import win32api
+from PIL import Image
+import datetime
 
 class MainScreen:
 

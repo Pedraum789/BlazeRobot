@@ -32,6 +32,7 @@ class Wallet:
             self.id = int(jsonWallet['id'])
             self.balance = float(jsonWallet['balance'])
             self.currency_type = str(jsonWallet['currency_type'])
+            self.currency_symbol = str(jsonWallet['currency']['symbol'])
 
     def getId(self):
         return self.id

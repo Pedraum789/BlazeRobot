@@ -55,6 +55,7 @@ class StrategyTwo:
 
     def addOnLogText(self, message):
         self.logText.insert("0.0", message + "\n")
+        TokenFile.addLogHistory(message)
 
     def setStopWinBar(self):
         self.progressBarWin.set((1 * self.moneyWin) / self.stopWin)
@@ -79,7 +80,8 @@ class StrategyTwo:
         return self.moneyStart
 
     def startStrategy(self):
-        self.addOnLogText("Iniciado")
+        self.addOnLogText("-----------------------")
+        self.addOnLogText("Iniciado - Estratégia 2")
         self.addOnLogText("Dinheiro INICIAL: " + str(self.wallet.getCurrencyType()) + str(self.wallet.getMoney()))
 
         self.lastId = SearchHistory.getLastIdHistory()
@@ -101,26 +103,36 @@ class StrategyTwo:
 
                     if self.moneyWin >= self.stopWin:
                         self.wallet.updateWallet()
-                        show_info("Você chegou em seu STOP WIN de: R$" + str(self.stopWin) + " e ganhou: R$" + str(self.moneyWin) + "\n" +
-                                  "Seu salto atual é de: " + self.wallet.getCurrencyType() + str(self.wallet.getMoney()))
+                        log = "Você chegou em seu STOP WIN de: R$" + str(self.stopWin) + " e ganhou: R$" + str(self.moneyWin) + "\n" + "Seu salto atual é de: " + self.wallet.getCurrencyType() + str(self.wallet.getMoney())
+                        show_info(log)
+                        self.addOnLogText(log)
                         self.thread.stop()
                         break
                     elif self.moneyLose >= self.stopLose:
                         self.wallet.updateWallet()
-                        show_info("Você chegou em seu STOP LOSE de: R$" + str(self.stopLose) + " e perdeu: R$" + str(self.moneyLose) + "\n" +
-                                  "Seu salto atual é de: " + self.wallet.getCurrencyType() + str(self.wallet.getMoney()))
+                        log = "Você chegou em seu STOP LOSE de: R$" + str(self.stopLose) + " e perdeu: R$" + str(self.moneyLose) + "\n" + "Seu salto atual é de: " + self.wallet.getCurrencyType() + str(self.wallet.getMoney())
+                        show_info(log)
+                        self.addOnLogText(log)
                         self.thread.stop()
                         break
 
-                    # Enta apostar até conseguir
-                    while True:
+                    self.wallet.updateWallet()
+                    if self.wallet.getMoney() >= self.money:
+                        # Entra aposta até conseguir
+                        while True:
 
-                        if self.enterBlaze.enterCrash(self.money):
-                            self.addOnLogText("Entrei, com: " + self.wallet.getCurrencySymbol() + str(self.money))
-                            self.bought = True
-                            break
+                            if self.enterBlaze.enterCrash(self.money):
+                                self.addOnLogText("Entrei, com: " + self.wallet.getCurrencySymbol() + str(self.money))
+                                self.bought = True
+                                break
 
-                        time.sleep(1.5)
+                            time.sleep(1.5)
+                    else:
+                        info = "Você não pode apostar o valor de: " + str(self.wallet.getCurrencySymbol()) + str(self.money) + "\n" + "Seu saldo é de: " + str(self.wallet.getCurrencySymbol()) + str(self.wallet.getMoney())
+                        show_info(info)
+                        self.addOnLogText(info)
+                        self.thread.stop()
+                        break
 
                 else:
                     if self.bought:
