@@ -1,6 +1,6 @@
 import customtkinter as ctk
 import StrategyOne
-from ThreadProgramStop import ThreadProgramStop
+from utils.ThreadProgramStop import ThreadProgramStop
 import os
 from sys import platform
 
