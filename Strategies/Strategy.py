@@ -25,6 +25,8 @@ def show_info(info):
 class Strategy(ABC):
 
     def __init__(self, moneyStart, waitCrash, autoStop, thread, stopLose, stopWin, strategyScren, logText, progressBarWin, progressBarLose):
+        self.status = None
+        self.idBought = None
         self.lastId = ''
         self.thread = thread
         self.moneyStart = moneyStart
@@ -47,18 +49,19 @@ class Strategy(ABC):
                                                 autoStop,
                                                 self.wallet.getId())
 
+    @abstractmethod
     def hasToEnter(self):
-        return SearchHistory.getDecisionToEnter(self.waitCrash, self.autoStop)
+        pass
 
     def addOnLogText(self, message):
         self.logText.insert("0.0", message + "\n")
         TokenFile.addLogHistory(message)
 
     def setStopWinBar(self):
-        self.progressBarWin.set((1 * self.moneyWin) / self.stopWin)
+        self.progressBarWin.set(self.moneyWin / self.stopWin)
 
     def setStopLoseBar(self):
-        self.progressBarLose.set((1 * self.moneyLose) / self.stopLose)
+        self.progressBarLose.set(self.moneyLose / self.stopLose)
 
     @abstractmethod
     def duplicateMoneyOrMoneyStart(self):
@@ -66,6 +69,10 @@ class Strategy(ABC):
 
     @abstractmethod
     def printStart(self):
+        pass
+
+    @abstractmethod
+    def isToDuplicatedMoney(self):
         pass
 
     def startStrategy(self):
@@ -86,9 +93,17 @@ class Strategy(ABC):
             lastIdToCompare = SearchHistory.getLastIdHistory()
 
             if self.lastId != lastIdToCompare:
+
+                lastCrashCompare = SearchHistory.getLastCrashPoint()
+
+                if lastCrashCompare >= autoStop:
+                    self.status = 1
+                else:
+                    self.status = 0
+
                 if self.hasToEnter():
 
-                    if self.bought:
+                    if self.isToDuplicatedMoney():
                         self.money = self.duplicateMoneyOrMoneyStart()
 
                     if self.moneyWin >= self.stopWin:
@@ -114,6 +129,7 @@ class Strategy(ABC):
                             if self.enterBlaze.enterCrash(self.money):
                                 self.addOnLogText("Entrei, com: " + str(self.wallet.getCurrencySymbol()) + str(self.money))
                                 self.bought = True
+                                self.idBought = lastIdToCompare
                                 break
 
                             time.sleep(1.5)
@@ -123,7 +139,6 @@ class Strategy(ABC):
                         self.addOnLogText(info)
                         self.thread.stop()
                         break
-
                 else:
                     if self.bought:
                         self.addOnLogText("WIN de: " + self.wallet.getCurrencySymbol() + str(((self.money * self.autoStop) - self.money)))

@@ -7,7 +7,7 @@
   },
   {
    "optionDest": "filenames",
-   "value": "C:/Users/pedra/PycharmProjects/pythonProject/MainScreen.py"
+   "value": "C:/Users/pedra/PycharmProjects/pythonProject/SmartBlaster.py"
   },
   {
    "optionDest": "onefile",
@@ -55,14 +55,6 @@
   },
   {
    "optionDest": "datas",
-   "value": "C:/Users/pedra/PycharmProjects/pythonProject/AccessTokenBlaze.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "C:/Users/pedra/PycharmProjects/pythonProject/EnterBlaze.py;."
-  },
-  {
-   "optionDest": "datas",
    "value": "C:/Users/pedra/PycharmProjects/pythonProject/pythoncom311.dll;."
   },
   {
@@ -71,43 +63,47 @@
   },
   {
    "optionDest": "datas",
-   "value": "C:/Users/pedra/PycharmProjects/pythonProject/SearchHistory.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "C:/Users/pedra/PycharmProjects/pythonProject/SearchImage.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "C:/Users/pedra/PycharmProjects/pythonProject/ThreadProgramStop.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "C:/Users/pedra/PycharmProjects/pythonProject/TokenFile.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "C:/Users/pedra/PycharmProjects/pythonProject/UpdateVersion.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "C:/Users/pedra/PycharmProjects/pythonProject/Version.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "C:/Users/pedra/PycharmProjects/pythonProject/Wallet.py;."
-  },
-  {
-   "optionDest": "datas",
    "value": "C:/Users/pedra/PycharmProjects/pythonProject/win32api.pyd;."
   },
   {
    "optionDest": "datas",
-   "value": "C:/Users/pedra/PycharmProjects/pythonProject/Strategies/StrategyOneFiles/StrategyOne.py;."
+   "value": "C:/Users/pedra/PycharmProjects/pythonProject/utils/SearchHistory.py;."
   },
   {
    "optionDest": "datas",
-   "value": "C:/Users/pedra/PycharmProjects/pythonProject/Strategies/StrategyOneFiles/ViewStrategyOne.py;."
+   "value": "C:/Users/pedra/PycharmProjects/pythonProject/utils/SearchImage.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/pedra/PycharmProjects/pythonProject/utils/ThreadProgramStop.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/pedra/PycharmProjects/pythonProject/utils/blaze/AccessTokenBlaze.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/pedra/PycharmProjects/pythonProject/utils/blaze/EnterBlaze.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/pedra/PycharmProjects/pythonProject/utils/blaze/TokenFile.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/pedra/PycharmProjects/pythonProject/utils/blaze/Wallet.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/pedra/PycharmProjects/pythonProject/update/UpdateVersion.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/pedra/PycharmProjects/pythonProject/update/Version.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/pedra/PycharmProjects/pythonProject/Strategies/Strategy.py;."
   },
   {
    "optionDest": "datas",
@@ -116,6 +112,22 @@
   {
    "optionDest": "datas",
    "value": "C:/Users/pedra/PycharmProjects/pythonProject/Strategies/StrategyTwoFiles/ViewStrategyTwo.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/pedra/PycharmProjects/pythonProject/Strategies/StrategyThreeFiles/StrategyThree.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/pedra/PycharmProjects/pythonProject/Strategies/StrategyThreeFiles/ViewStrategyThree.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/pedra/PycharmProjects/pythonProject/Strategies/StrategyOneFiles/StrategyOne.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/pedra/PycharmProjects/pythonProject/Strategies/StrategyOneFiles/ViewStrategyOne.py;."
   },
   {
    "optionDest": "datas",
@@ -144,6 +156,18 @@
   {
    "optionDest": "datas",
    "value": "C:/Users/pedra/PycharmProjects/pythonProject/credentials/UserControl.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/pedra/PycharmProjects/pythonProject/win32;win32/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/pedra/PycharmProjects/pythonProject/utils;utils/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/pedra/PycharmProjects/pythonProject/update;update/"
   },
   {
    "optionDest": "datas",

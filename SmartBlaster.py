@@ -5,19 +5,26 @@ import CTkMessagebox
 
 sys.path.append(os.path.abspath("Strategies") + "\StrategyOneFiles")
 sys.path.append(os.path.abspath("Strategies") + "\StrategyTwoFiles")
+sys.path.append(os.path.abspath("Strategies") + "\StrategyThreeFiles")
 sys.path.append(os.path.abspath("credentials"))
 sys.path.append(os.path.abspath("Strategies"))
-sys.path.append(os.path.abspath("utils") + "\blaze")
-sys.path.append(os.path.abspath("utils"))
+sys.path.append(os.path.dirname(os.path.abspath("AccessTokenBlaze")))
+sys.path.append(os.path.dirname(os.path.abspath("TokenFile")))
+sys.path.append(os.path.dirname(os.path.abspath("ThreadProgramStop")))
 
 from update import Version, UpdateVersion
 import ViewStrategyOne
 import ViewStrategyTwo
+import ViewStrategyThree
 import AccessHotmart
 import UserControl
+from utils import ThreadProgramStop
 from utils.blaze import AccessTokenBlaze, TokenFile
 import webbrowser
-from utils import ThreadProgramStop
+import pyautogui
+import cv2
+import numpy
+import time
 
 class MainScreen:
 
@@ -104,6 +111,8 @@ class MainScreen:
             ViewStrategyOne.ViewStrategyOne(self.mainScreen).startScreen()
         elif number == 2:
             ViewStrategyTwo.ViewStrategyTwo(self.mainScreen).startScreen()
+        elif number == 3:
+            ViewStrategyThree.ViewStrategyThree(self.mainScreen).startScreen()
 
     def switchButtom(self, buttom):
         if buttom._state == customtkinter.NORMAL:
@@ -130,6 +139,9 @@ class MainScreen:
 
         customtkinter.CTkButton(self.tabview.tab("Blaze Strategies"), text="Estratégia 2",
                                 command=lambda: self.startStrategy(2)).pack(padx=10, pady=10)
+
+        customtkinter.CTkButton(self.tabview.tab("Blaze Strategies"), text="Estratégia 3",
+                                command=lambda: self.startStrategy(3)).pack(padx=10, pady=10)
 
         # Deleta a Tab login
         self.tabview.delete("Login")

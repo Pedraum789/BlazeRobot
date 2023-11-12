@@ -30,6 +30,28 @@ class StrategyOne(Strategy.Strategy):
 
         return self.moneyStart
 
+    def isToDuplicatedMoney(self):
+        return self.bought
+
+    def hasToEnter(self):
+        qtd = 0
+
+        json = SearchHistory.getHistory()
+
+        if json is not None:
+
+            for i in range(self.waitCrash):
+
+                if float(json['records'][i]['crash_point']) < self.autoStop:
+                    qtd += 1
+
+            if qtd >= self.waitCrash:
+                return True
+
+            return False
+
+        return False
+
     def printStart(self):
         self.addOnLogText("-----------------------")
         self.addOnLogText("Iniciado - Estratégia 1")
